@@ -212,6 +212,7 @@ with st.expander("Method and limitations"):
 with st.expander("NbS catalogue and sources"):
     st.dataframe(cat, hide_index=True)
 
-st.caption("Contains data from the Copernicus Land Monitoring Service (Urban Atlas 2021), "
-           "Landsat 8 Collection 2 Level-2 data courtesy of the U.S. Geological Survey, and "
-           "OpenStreetMap contributors (municipality boundary, basemap).")
+st.caption("Prototype. Heat exposure is a proxy computed from Urban Atlas 2021 land cover and street trees "
+           "(100 m cells). Only the built-up part of Bolzano is shown (cells with at least 30% artificial "
+           "surface), so forests and farmland on the slopes are outside the study area. "
+           "It is not measured temperature. Cost levels in the catalogue are assumptions.")

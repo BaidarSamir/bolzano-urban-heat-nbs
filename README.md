@@ -29,7 +29,7 @@ Which parts of Bolzano are most exposed to urban heat, and which cooling measure
 
 ## What the app does
 
-- Shows 1,842 built-up 100 m cells on a map, coloured either by heat exposure class or by measured Landsat surface temperature.
+- Shows 1,842 built-up 100 m cells on a map, coloured either by heat exposure class or by measured Landsat surface temperature. Only the built-up part of Bolzano is covered: forests, vineyards and farmland on the slopes are outside the study area.
 - Lets you change the weight given to sealed surface versus missing vegetation. The index, classes and recommendations update live.
 - Reports a sensitivity check: how many of the highest-class cells stay in the highest class when the weight changes.
 - Reports the rank correlation between the index and Landsat surface temperature, recomputed for the chosen weight.
@@ -37,6 +37,8 @@ Which parts of Bolzano are most exposed to urban heat, and which cooling measure
 - Includes the full NbS catalogue with references.
 
 ## Main results
+
+![Heat exposure classes in Bolzano](docs/heat_index_map.png)
 
 - The heat exposure index follows measured surface temperature: Spearman rho = 0.68 on 1,180 cells with clear Landsat data (one scene, 13 June 2021).
 - The relationship also holds inside land use types, so it is not only a contrast between industrial and residential areas. Within residential cells rho is 0.58, within industrial and commercial cells 0.66, and within transport cells 0.75.
@@ -57,7 +59,7 @@ Landsat data citation: Earth Resources Observation and Science (EROS) Center (20
 
 ## Method
 
-1. **Study area and grid.** A 100 m grid is laid over the Bolzano municipality. Cells with at least 30% artificial surfaces (Urban Atlas class 1xxxx) are kept, which gives 1,842 cells. Cells at the municipal edge are clipped, so 27 of them cover less than 2,500 m2.
+1. **Study area and grid.** A 100 m grid is laid over the Bolzano municipality. Cells with at least 30% artificial surfaces (Urban Atlas class 1xxxx) are kept, which gives 1,842 cells. Forests, farmland and other land on the slopes with little artificial surface are therefore not part of the analysis. Cells at the municipal edge are clipped, so 27 of them cover less than 2,500 m2.
 2. **Sealed share.** The Urban Atlas urban fabric classes state sealing ranges in their names, and I used the midpoints: continuous 0.90, dense 0.65, medium 0.40, low 0.20, very low 0.05. For other artificial classes I assumed values: isolated structures 0.50, industrial/commercial/public units 0.80, fast roads 0.90, other roads 0.90, railways 0.60, airports 0.80. These assumptions are not measurements.
 3. **Vegetation share.** Street trees (Street Tree Layer) plus urban green areas (Urban Atlas class 14xxx), capped at 1.
 4. **Heat exposure index.** `index = w * sealed + (1 - w) * (1 - vegetation)`, with a default w of 0.6. The default was set from assumptions before any comparison with satellite data and was not tuned afterwards. Cells are ranked and split into quartiles: lower, moderate, high, highest. The classes are a relative ranking, not a temperature.
@@ -72,6 +74,8 @@ Landsat data citation: Earth Resources Observation and Science (EROS) Center (20
    | transport | 111 | Roads and railways |
    | airport | 51 | Class 12400 |
 
+   The cell type is the dominant land use class of the cell, not a measure of vegetation cover. "Green" cells are parks and sports or leisure areas inside the built-up zone. All 117 of them fall in the lowest heat class, although the sports facilities are warmer than the parks in the Landsat data (see the validation section).
+
 6. **Recommendation rules.** Only for cells in the high and highest classes:
    - industrial/commercial: cool roof, unsealing paving, street trees
    - transport: street trees, reflective pavement
@@ -85,6 +89,8 @@ Landsat data citation: Earth Resources Observation and Science (EROS) Center (20
 ## Validation against Landsat
 
 The index was built from land cover only and was not fitted to the satellite data, so this is an independent check.
+
+![Heat exposure index against Landsat surface temperature](docs/landsat_validation.png)
 
 **Overall.** Spearman rho = 0.68 between the index and Landsat surface temperature (n = 1,180 cells).
 
@@ -208,4 +214,4 @@ Paths inside the scripts point to a local Windows folder and need adjusting.
 
 Contains data from the Copernicus Land Monitoring Service (Urban Atlas 2021), Landsat 8 Collection 2 Level-2 data courtesy of the U.S. Geological Survey, and OpenStreetMap contributors (municipality boundary and basemap, ODbL).
 
-Code licence: [ADD, for example MIT].
+Code licence: MIT (see `LICENSE`).
