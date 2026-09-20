@@ -1,0 +1,18 @@
+# Whitelist approach: ignore everything at the root, then allow only what belongs in the repo.
+# Anything else in the folder (Results/, landsat/, raw downloads, old copies, new scratch files)
+# stays out of GitHub automatically.
+/*
+!/.gitignore
+!/README.md
+!/LICENSE
+!/requirements.txt
+!/app.py
+!/data/
+!/pipeline/
+!/docs/
+
+# Junk inside the allowed folders
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
