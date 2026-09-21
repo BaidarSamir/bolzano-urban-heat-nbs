@@ -8,7 +8,7 @@ A small prototype of a decision-support tool for urban heat adaptation. It ranks
 |---|---|
 | ![Dashboard, heat exposure classes](docs/screenshot_classes.png) | ![Dashboard, Landsat surface temperature](docs/screenshot_temperature.png) |
 
-Independent personal project by Samir Baidar, MSc student in Computing for Data Science (Machine Learning track) at the Free University of Bozen-Bolzano. It is a prototype for learning and demonstration, not an operational planning tool.
+Independent personal project. It is a prototype for learning and demonstration, not an operational planning tool.
 
 ## Contents
 
