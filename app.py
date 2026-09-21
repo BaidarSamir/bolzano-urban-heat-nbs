@@ -178,8 +178,20 @@ with right:
             else:
                 st.write(f"**Landsat surface temperature:** {t:.1f} C (13 June 2021)")
         st.caption("What drives this cell's index")
-        st.bar_chart(pd.DataFrame({"contribution": [c_sealed, c_veg]},
-                                  index=["Sealed surface", "Missing vegetation"]))
+        med = cells[["sealed_share", "tree_share", "ugreen_share"]].median()
+
+        st.markdown("**1. Contribution to the index**")
+        st.bar_chart(pd.DataFrame({"Contribution": [c_sealed, c_veg]},
+                                  index=["Sealed surface", "Missing vegetation"]),
+                     horizontal=True, height=150)
+
+        st.markdown("**2. Difference from the median built-up cell**")
+        st.bar_chart(pd.DataFrame({"Difference": [p["sealed_share"] - med["sealed_share"],
+                                                  p["tree_share"] - med["tree_share"],
+                                                  p["ugreen_share"] - med["ugreen_share"]]},
+                                  index=["Sealed surface", "Street trees", "Urban green"]),
+                     horizontal=True, height=180)
+        st.caption("Bars to the right: more than the typical cell. Bars to the left: less.")
         if p["rec_names"]:
             st.write("**Suggested solutions:** " + p["rec_names"])
             wanted = p["rec_names"].split(", ")
