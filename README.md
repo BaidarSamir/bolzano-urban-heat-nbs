@@ -2,7 +2,7 @@
 
 A small prototype of a decision-support tool for urban heat adaptation. It ranks the built-up part of Bolzano (Italy) in 100 m cells by heat exposure, checks that ranking against satellite-measured surface temperature, and links each high-exposure cell to a referenced catalogue of cooling measures, including Nature-Based Solutions (NbS).
 
-**Live demo:** https://bolzano-urban-heat-nbs-y.streamlit.app/
+**Live demo:** https://bolzano-urban-heat-nbs-samir-baidar.streamlit.app/
 
 | Colour by heat exposure class | Colour by Landsat surface temperature |
 |---|---|
