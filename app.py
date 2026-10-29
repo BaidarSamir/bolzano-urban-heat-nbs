@@ -195,8 +195,9 @@ with right:
         if p["rec_names"]:
             st.write("**Suggested solutions:** " + p["rec_names"])
             wanted = p["rec_names"].split(", ")
-            st.dataframe(cat[cat["name"].isin(wanted)][["name", "cooling_evidence", "source",
-                                                       "space_need", "cost_level"]],
+            st.dataframe(cat[cat["name"].isin(wanted)][["name", "temp_drop_c", "cooling_evidence",
+                                                       "source", "space_need", "cost_level"]]
+                         .rename(columns={"temp_drop_c": "Est. temp drop (°C)"}),
                          hide_index=True)
         elif p["cell_type"] == "airport":
             st.write("No suggestion: the rule set does not cover airport land (runways, aprons).")
@@ -222,7 +223,9 @@ with st.expander("Method and limitations"):
     )
 
 with st.expander("NbS catalogue and sources"):
-    st.dataframe(cat, hide_index=True)
+    st.caption("'Est. temp drop (°C)' values are taken directly from the cooling_evidence text. "
+               "Where the cited source gives no air-temperature figure, this is stated explicitly.")
+    st.dataframe(cat.rename(columns={"temp_drop_c": "Est. temp drop (°C)"}), hide_index=True)
 
 st.caption("Prototype. Heat exposure is a proxy computed from Urban Atlas 2021 land cover and street trees "
            "(100 m cells). Only the built-up part of Bolzano is shown (cells with at least 30% artificial "
